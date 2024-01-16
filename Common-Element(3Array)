@@ -1,0 +1,45 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+vector<int> commonElements(int A[], int B[], int C[], int n1, int n2, int n3) {
+    vector<int> result;
+    int i = 0, j = 0, k = 0;
+
+    while (i < n1 && j < n2 && k < n3) {
+        if (A[i] == B[j] && B[j] == C[k]) {
+            // Add the common element to the result
+            result.push_back(A[i]);
+            // Move all three pointers to the next distinct elements
+            while (i < n1 && A[i] == result.back()) i++;
+            while (j < n2 && B[j] == result.back()) j++;
+            while (k < n3 && C[k] == result.back()) k++;
+        } else if (A[i] < B[j]) {
+            i++;
+        } else if (B[j] < C[k]) {
+            j++;
+        } else {
+            k++;
+        }
+    }
+
+    return result.empty() ? vector<int>{-1} : result;
+}
+
+int main() {
+    int n1 = 3;
+    int A[] = {3, 3, 3};
+    int n2 = 3;
+    int B[] = {3, 3, 3};
+    int n3 = 3;
+    int C[] = {3, 3, 3};
+
+    vector<int> output = commonElements(A, B, C, n1, n2, n3);
+
+    for (int element : output) {
+        cout << element << " ";
+    }
+
+    return 0;
+}
