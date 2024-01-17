@@ -1,0 +1,38 @@
+#include <iostream>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+
+bool uniqueOccurrences(const std::vector<int>& arr) {
+    std::unordered_map<int, int> countMap;
+
+    // Count occurrences of each value in the array
+    for (int num : arr) {
+        countMap[num]++;
+    }
+
+    // Check if the counts are unique using a set
+    std::unordered_set<int> uniqueCounts;
+    for (const auto& pair : countMap) {
+        if (!uniqueCounts.insert(pair.second).second) {
+            // If inserting the count fails, it means the count is not unique
+            return false;
+        }
+    }
+
+    return true;
+}
+
+int main() {
+    // Example usage:
+    std::vector<int> arr1 = {1, 2, 2, 1, 1, 3};
+    std::cout << std::boolalpha << uniqueOccurrences(arr1) << std::endl;  // Output: true
+
+    std::vector<int> arr2 = {1, 2};
+    std::cout << std::boolalpha << uniqueOccurrences(arr2) << std::endl;  // Output: false
+
+    std::vector<int> arr3 = {-3, 0, 1, -3, 1, 1, 1, -3, 10, 0};
+    std::cout << std::boolalpha << uniqueOccurrences(arr3) << std::endl;  // Output: true
+
+    return 0;
+}
