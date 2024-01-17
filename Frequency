@@ -1,0 +1,23 @@
+#include <unordered_map>
+
+class Solution {
+public:
+    int getPairsCount(int arr[], int n, int k) {
+        std::unordered_map<int, int> frequencyMap;
+        int count = 0;
+
+        for (int i = 0; i < n; i++) {
+            int complement = k - arr[i];
+
+            // Check if the complement is present in the frequency map
+            if (frequencyMap.find(complement) != frequencyMap.end()) {
+                count += frequencyMap[complement];
+            }
+
+            // Update the frequency map
+            frequencyMap[arr[i]]++;
+        }
+
+        return count;
+    }
+};
