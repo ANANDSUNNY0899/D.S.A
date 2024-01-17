@@ -1,0 +1,46 @@
+#include <iostream>
+#include <vector>
+#include <cmath>
+
+std::vector<int> findDuplicates(int a[], int N) {
+    std::vector<int> result;
+
+    for (int i = 0; i < N; ++i) {
+        int index = std::abs(a[i]);
+        
+        // If the element is already negative, it means it's a duplicate
+        if (a[index] < 0) {
+            result.push_back(index);
+        } else {
+            // Mark the element as visited by making it negative
+            a[index] = -a[index];
+        }
+    }
+
+    // If no duplicates found, return [-1]
+    if (result.empty()) {
+        result.push_back(-1);
+    }
+
+    return result;
+}
+
+int main() {
+    int N1 = 4;
+    int a1[] = {0, 3, 1, 2};
+    std::vector<int> result1 = findDuplicates(a1, N1);
+    for (int num : result1) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+    int N2 = 5;
+    int a2[] = {2, 3, 1, 2, 3};
+    std::vector<int> result2 = findDuplicates(a2, N2);
+    for (int num : result2) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
