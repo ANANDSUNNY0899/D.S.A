@@ -1,0 +1,42 @@
+#include<iostream>
+#include<vector>
+
+using namespace std;
+
+int linearSearch(int n, int num, vector<int> &arr)
+{
+    for(int i = 0; i < n; i++)
+    {
+        if(arr[i] == num)
+        {
+            // Number found, return the index
+            return i;
+        }
+    }
+    
+    // Number not found, return a special value (e.g., -1)
+    return -1;
+}
+
+int main()
+{
+    vector<int> arr = {10, 20, 30, 40, 50};
+    int n = arr.size();
+    int num;
+
+    cout << "Enter the number to search: ";
+    cin >> num;
+
+    int result = linearSearch(n, num, arr);
+
+    if(result != -1)
+    {
+        cout << "Number found at index: " << result << endl;
+    }
+    else
+    {
+        cout << "Number not found in the array." << endl;
+    }
+
+    return 0;
+}
