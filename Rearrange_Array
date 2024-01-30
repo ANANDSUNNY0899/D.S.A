@@ -1,0 +1,43 @@
+Optimized ------>
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+vector<int> alternateNumbers(vector<int>& a) {
+    vector<int> temp(a.size(), 0); // Initialize temp with the same size as input vector
+
+    int evenIndex = 0;
+    int oddIndex = 1;
+
+    for (int i = 0; i < a.size(); i++) {
+        if (a[i] > 0) {
+            temp[evenIndex] = a[i];
+            evenIndex += 2;
+        } else {
+            temp[oddIndex] = a[i];
+            oddIndex += 2;
+        }
+    }
+
+    return temp;
+}
+
+int main() {
+    // Example usage:
+    vector<int> input = {1, -2, 3, -4, 5};
+    vector<int> result = alternateNumbers(input);
+
+    cout << "Original vector: ";
+    for (int num : input) {
+        cout << num << " ";
+    }
+
+    cout << "\nModified vector: ";
+    for (int num : result) {
+        cout << num << " ";
+    }
+
+    return 0;
+}
