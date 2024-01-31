@@ -1,0 +1,39 @@
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+vector<int> superiorElements(vector<int>& a) {
+    int n = a.size();
+    vector<int> temp;
+
+    // Iterate from the end to the beginning
+    for (int i = n - 1; i >= 0; i--) {
+        temp.push_back(a[i]);
+
+        // Check if there is a superior element to the right
+        if (i < n - 1 && a[i] > a[i + 1] && all_of(temp.begin(), temp.end(), [current = a[i]](int val) { return val < current; })) {
+            temp[i] = a[i + 1];
+        }
+    }
+
+    return temp;
+}
+
+int main() {
+    // Example usage
+    vector<int> input = {4, 3, 8, 6, 2, 1, 7};
+    vector<int> result = superiorElements(input);
+
+    // Display the result
+    cout << "Input: ";
+    for (int num : input) {
+        cout << num << " ";
+    }
+
+    cout << "\nResult: ";
+    for (int num : result) {
+        cout << num << " ";
+    }
+
+    return 0;
+}
