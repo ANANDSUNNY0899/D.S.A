@@ -1,0 +1,41 @@
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int longestSuccessiveElements(vector<int>& a) {
+    if (a.empty()) {
+        return 0; // Return 0 for an empty vector
+    }
+
+    sort(a.begin(), a.end());
+    int maxLength = 1; // Initialize the length of the longest subsequence
+    int currentLength = 1;
+
+    for (int i = 1; i < a.size(); i++) {
+        if (a[i] == a[i - 1] + 1) {
+            currentLength++;
+        } else if (a[i] != a[i - 1]) {
+            currentLength = 1;
+        }
+
+        maxLength = max(maxLength, currentLength);
+    }
+
+    return maxLength;
+}
+
+int main() {
+    // Example usage
+    vector<int> input = {4, 2, 1, 6, 5, 8, 7};
+    int result = longestSuccessiveElements(input);
+
+    // Display the result
+    cout << "Input: ";
+    for (int num : input) {
+        cout << num << " ";
+    }
+
+    cout << "\nLength of Longest Consecutive Subsequence: " << result << endl;
+
+    return 0;
+}
