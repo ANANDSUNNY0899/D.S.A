@@ -1,0 +1,28 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int search(const vector<int> &nums, int target) {
+    for (int i = 0; i < nums.size(); i++) {
+        if (nums[i] == target) {
+            return i;  // Return the index where the target is found
+        }
+    }
+    return -1;  // Return -1 if the target is not found
+}
+
+int main() {
+    vector<int> nums = {1, 2, 3, 4, 5};
+    int target = 3;
+
+    int result = search(nums, target);
+
+    if (result != -1) {
+        cout << "Target found at index: " << result << endl;
+    } else {
+        cout << "Target not found in the vector." << endl;
+    }
+
+    return 0;
+}
