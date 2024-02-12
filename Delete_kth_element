@@ -1,0 +1,84 @@
+// Definition of a Node in a linked list
+class Node {
+public:
+    int data;
+    Node* next;
+
+    // Constructor with both data and next pointer
+    Node(int data1, Node* next1) {
+        data = data1;
+        next = next1;
+    }
+
+    // Constructor with only data, sets next to nullptr
+    Node(int data1) {
+        data = data1;
+        next = nullptr;
+    }
+};
+
+// Function to print the linked list
+void printLL(Node* head) {
+    while (head != NULL) {
+        cout << head->data << " ";
+        head = head->next;
+    }
+}
+
+// Function to delete the k-th node in a linked list
+Node* deleteK(Node* head, int k) {
+    // Check if the list is empty
+    if (head == NULL)
+        return head;
+
+    // If k is 1, delete the first node
+    if (k == 1) {
+        Node* temp = head;
+        head = head->next;
+        delete (temp);
+        return head;
+    }
+
+    // Traverse the list to find the k-th node
+    Node* temp = head;
+    Node* prev = NULL;
+    int cnt = 0;
+
+    while (temp != NULL) {
+        cnt++;
+        // If the k-th node is found
+        if (cnt == k) {
+            // Adjust the pointers to skip the k-th node
+            prev->next = prev->next->next;
+            // Delete the k-th node
+            delete temp;
+            break;
+        }
+        // Move to the next node
+        prev = temp;
+        temp = temp->next;
+    }
+
+    return head;
+}
+
+int main() {
+    // Create a linked list from a vector
+    vector<int> arr = {0, 1, 2};
+    int k = 2;
+    Node* head = new Node(arr[0]);
+    head->next = new Node(arr[1]);
+    head->next->next = new Node(arr[2]);
+    // Delete the k-th node in the linked list
+    head = deleteK(head, k);
+
+    // Print the modified linked list
+    printLL(head);
+
+    return 0;
+}
+Output: 0 2
+
+Time Complexity: O(N) worst case, when deleting the tail and O(1) best case, when deleting the head.
+
+Space Complexity: O(1), as we have not used any extra space.
