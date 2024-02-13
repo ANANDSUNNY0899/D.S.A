@@ -1,3 +1,38 @@
+//OptimizedCode_then_below---->..............
+
+Node *deleteNode(Node *head, int pos) {
+    int count = 0;
+    Node *temp = head;
+    Node *prev = NULL;
+
+    if (head == NULL) // Empty list
+        return head;
+
+    if (pos == 0) { // Deleting head
+        head = head->next;
+        delete temp;
+        return head;
+    }
+
+    while (temp != NULL && count < pos) {
+        prev = temp;
+        temp = temp->next;
+        count++;
+    }
+
+    if (temp == NULL) 
+        return head;
+
+    prev->next = temp->next; 
+    delete temp; 
+    return head;
+
+
+
+
+
+
+
 // Definition of a Node in a linked list
 class Node {
 public:
