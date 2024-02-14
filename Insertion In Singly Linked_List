@@ -1,0 +1,31 @@
+Node *insert(Node *head, int n, int pos, int val) {
+    Node *newNode = new Node(val); // Create a new node with the given value
+
+    // If the insertion position is the head of the list or the list is empty
+    if (pos == 0 || head == NULL) {
+        newNode->next = head; // Point the new node to the current head
+        return newNode; // Make the new node the new head
+    }
+
+    Node *temp = head;
+    int count = 0;
+
+    // Traverse the list to find the node at position 'pos - 1'
+    while (temp != NULL && count < pos - 1) {
+        temp = temp->next;
+        count++;
+    }
+
+    // Check if the given position is out of bounds
+    if (temp == NULL) {
+        delete newNode; // Delete the newly created node to avoid memory leak
+        cout << "Invalid position\n";
+        return head; // Return the original head as there's no insertion
+    }
+
+    // Insert the new node after the node at position 'pos - 1'
+    newNode->next = temp->next;
+    temp->next = newNode;
+
+    return head;
+}
