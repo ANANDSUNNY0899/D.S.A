@@ -1,0 +1,67 @@
+
+
+class Node
+{
+public:
+    int data;
+    Node* next;
+    Node(int data)
+    { 
+        this->data = data;
+        next = NULL;
+    }
+};
+*****************************************************************/
+
+Node* insertBeforeValue(Node* &head, int x, int val) {
+    if (head == nullptr) {
+        return nullptr; // If the list is empty, return nullptr
+    }
+
+    Node *prev = nullptr;
+    Node *nd = new Node(x);
+    Node *temp = head;
+
+    // If the value to be inserted before is the head's value
+    if (head->data == val) {
+        nd->next = head;
+        head = nd; // Update head to point to the new node
+        return head;
+    }
+
+    // Traverse the list to find the node with the value val
+    while (temp != nullptr && temp->data != val) {
+        prev = temp;
+        temp = temp->next;
+    }
+
+    if (temp == nullptr) {
+        std::cout << "Value " << val << " not found in the list." << std::endl;
+        return head; // Return head as the value to insert before is not found
+    }
+
+    // Insert the new node before the node with value val
+    prev->next = nd;
+    nd->next = temp;
+
+    return head; // Return head
+}
+
+int main() {
+    // Creating a sample linked list: 1 -> 2 -> 3 -> 4 -> nullptr
+    Node* head = new Node(1);
+    head->next = new Node(2);
+    head->next->next = new Node(3);
+    head->next->next->next = new Node(4);
+
+    std::cout << "Original list: ";
+    printList(head);
+
+    // Inserting 5 before the first occurrence of value 3
+    head = insertBeforeValue(head, 5, 3);
+
+    std::cout << "List after insertion: ";
+    printList(head);
+
+    return 0;
+}
