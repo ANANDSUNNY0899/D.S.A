@@ -1,0 +1,80 @@
+#include <iostream>
+
+class Node {
+public:
+    int data;
+    Node *next;
+    Node *prev;
+    
+    Node() {
+        this->data = 0;
+        next = nullptr;
+        prev = nullptr;
+    }
+    
+    Node(int data) {
+        this->data = data; 
+        this->next = nullptr;
+        this->prev = nullptr;
+    }
+    
+    Node(int data, Node* next, Node* prev) {
+        this->data = data;
+        this->next = next;
+        this->prev = prev;
+    }
+};
+
+Node * deleteHead(Node *head) {
+    if(head == nullptr || head->next == nullptr) {
+        return nullptr;
+    }
+    Node *prev = head;
+    head = head->next;
+    head->prev = nullptr;
+    prev->next = nullptr;
+    delete prev;
+    return head;
+}
+
+// Function to print the doubly linked list
+void printDLL(Node* head) {
+    while (head != nullptr) {
+        std::cout << head->data << " ";
+        head = head->next;
+    }
+    std::cout << std::endl;
+}
+
+int main() {
+    // Create a sample doubly linked list
+    Node *node1 = new Node(1);
+    Node *node2 = new Node(2);
+    Node *node3 = new Node(3);
+    
+    node1->next = node2;
+    node2->prev = node1;
+    node2->next = node3;
+    node3->prev = node2;
+    
+    // Print the original doubly linked list
+    std::cout << "Original Doubly Linked List: ";
+    printDLL(node1);
+    
+    // Delete the head node
+    Node *newHead = deleteHead(node1);
+    
+    // Print the modified doubly linked list
+    std::cout << "Modified Doubly Linked List after deleting head: ";
+    printDLL(newHead);
+    
+    // Clean up memory
+    delete node2;
+    delete node3;
+    
+    return 0;
+}
+
+This code defines the Node class with its constructors, including the one with default values for next and prev pointers. 
+It also defines the deleteHead function to delete the head node of a doubly linked list and update the head pointer accordingly.
+Finally, the printDLL function is used to print the doubly linked list, and the main function demonstrates the usage of these functions.
