@@ -1,0 +1,77 @@
+#include <iostream>
+
+using namespace std;
+
+struct Node {
+    int data;
+    Node *prev;
+    Node *next;
+    
+    Node(int val) : data(val), prev(NULL), next(NULL) {}
+};
+
+Node *deleteNode(Node *head, int k){
+    Node *temp = head;
+    Node *nd = NULL;
+    int count=1;
+    
+    // Traverse to the kth node
+    while(temp!=NULL && count<k){
+        temp=temp->next;
+        count++;
+    }
+    
+    // If kth node is found
+    if(count==k && temp != NULL){
+        nd = temp;
+        
+        // If nd is not the first node
+        if (nd->prev != NULL) {
+            nd->prev->next = nd->next;
+        } else {
+            // If nd is the first node, update head
+            head = nd->next;
+        }
+        
+        // If nd is not the last node
+        if (nd->next != NULL) {
+            nd->next->prev = nd->prev;
+        }
+        
+        // Delete the node
+        delete nd;
+    }
+    
+    return head;
+}
+
+void printList(Node *head) {
+    while (head != NULL) {
+        cout << head->data << " ";
+        head = head->next;
+    }
+    cout << endl;
+}
+
+int main() {
+    // Create a doubly linked list: 1 <-> 2 <-> 3 <-> 4 <-> 5
+    Node *head = new Node(1);
+    head->next = new Node(2);
+    head->next->prev = head;
+    head->next->next = new Node(3);
+    head->next->next->prev = head->next;
+    head->next->next->next = new Node(4);
+    head->next->next->next->prev = head->next->next;
+    head->next->next->next->next = new Node(5);
+    head->next->next->next->next->prev = head->next->next->next;
+    
+    cout << "Original list: ";
+    printList(head);
+    
+    // Delete node at position 3 (3)
+    head = deleteNode(head, 3);
+    cout << "List after deleting node at position 3: ";
+    printList(head);
+    
+    return 0;
+}
