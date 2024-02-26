@@ -1,0 +1,66 @@
+#include <iostream>
+
+struct Node {
+    int data;
+    Node* prev;
+    Node* next;
+    
+    Node(int val) : data(val), prev(nullptr), next(nullptr) {}
+};
+
+Node* insertBeforeTail(Node* head, int k) {
+    Node* temp = new Node(k);
+    Node* nd = head;
+
+    if (nd == nullptr) {
+        return temp; // If the list is empty, the new node becomes the head
+    }
+
+    while (nd->next != nullptr && nd->next->next != nullptr) {
+        nd = nd->next;
+    }
+
+    // Insert the new node before the tail
+    temp->prev = nd;
+    temp->next = nd->next;
+    if (nd->next != nullptr) {
+        nd->next->prev = temp; // Update the previous pointer of the next node
+    }
+    nd->next = temp; // Update the next pointer of the previous node
+
+    return head; // Return the head of the list
+}
+
+void printList(Node* head) {
+    while (head != nullptr) {
+        std::cout << head->data << " ";
+        head = head->next;
+    }
+    std::cout << std::endl;
+}
+
+void deleteList(Node* head) {
+    while (head != nullptr) {
+        Node* temp = head;
+        head = head->next;
+        delete temp;
+    }
+}
+
+int main() {
+    Node* head = nullptr;
+    
+    // Inserting nodes before the tail
+    head = insertBeforeTail(head, 1);
+    head = insertBeforeTail(head, 2);
+    head = insertBeforeTail(head, 3);
+    
+    // Print the list
+    std::cout << "Doubly Linked List: ";
+    printList(head);
+    
+    // Cleanup: Delete all nodes
+    deleteList(head);
+    
+    return 0;
+}
