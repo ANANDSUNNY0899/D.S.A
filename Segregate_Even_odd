@@ -1,0 +1,37 @@
+Node* segregateEvenOdd(Node* head)
+{
+    Node *evenHead = NULL, *evenTail = NULL;
+    Node *oddHead = NULL, *oddTail = NULL;
+    
+    Node *temp = head;
+    
+    while(temp != NULL){
+        if(temp->data % 2 == 0){ // Even node
+            if(evenHead == NULL){
+                evenHead = evenTail = temp;
+            } else {
+                evenTail->next = temp;
+                evenTail = evenTail->next;
+            }
+        } else { // Odd node
+            if(oddHead == NULL){
+                oddHead = oddTail = temp;
+            } else {
+                oddTail->next = temp;
+                oddTail = oddTail->next;
+            }
+        }
+        temp = temp->next;
+    }
+    
+    // Joining even and odd lists
+    if(evenHead == NULL) // No even nodes
+        return oddHead;
+    else if(oddHead == NULL) // No odd nodes
+        return evenHead;
+    
+    evenTail->next = oddHead;
+    oddTail->next = NULL; // Terminating the list
+    
+    return evenHead;
+}
