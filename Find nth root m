@@ -1,0 +1,10 @@
+#include <cmath>
+
+int NthRoot(int n, int m) {
+    double root = pow(m, 1.0 / n);
+    int intRoot = static_cast<int>(round(root)); 
+    if (pow(intRoot, n) == m) {
+        return intRoot;
+    }
+    return -1;
+}
