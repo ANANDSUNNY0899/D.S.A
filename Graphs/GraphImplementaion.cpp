@@ -24,9 +24,8 @@ int main(){
         int a = edgeList[i][0], b= edgeList[i][1];
         graph[a].push_back(b);
         graph[b].push_back(a);
-
     }
-
-
     print_graph(graph);
 }
+
+
